@@ -1,0 +1,27 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:util="http://java.sun.com/jsf/composite/components"
+	template="/WEB-INF/template.xhtml">
+
+	<ui:define name="title">Admin - #{titlePage}</ui:define>
+
+	<ui:define name="content">
+		<ui:insert name="content-header" />		
+	
+		<!-- formulaire d'édition -->
+		<ui:decorate template="/WEB-INF/includes/section/section-edit.xhtml" />
+
+		<!-- fomulaire list -->
+		<ui:decorate template="/WEB-INF/includes/section/section-list.xhtml" />
+		
+		<ui:insert name="content-footer" />
+	</ui:define>
+
+	
+	
+
+</ui:composition>

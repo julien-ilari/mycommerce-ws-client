@@ -1,0 +1,11 @@
+
+					<h1>#{titlePage}</h1>
+					<h:form>
+						<h:selectOneMenu value="#{userData.localeCode}"
+							onchange="submit()"
+							valueChangeListener="#{userData.localeChanged}">
+							<f:selectItems value="#{userData.countries}" />
+						</h:selectOneMenu>
+					</h:form>
+
+						

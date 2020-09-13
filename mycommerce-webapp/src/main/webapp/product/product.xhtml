@@ -1,0 +1,150 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:p="http://primefaces.org/ui"
+	xmlns:w="http://web-maker.fr/html"
+	template="/WEB-INF/templates/layout-crud.xhtml">
+
+	<ui:param name="titlePage" value="#{msg['products.title']}" />
+
+	<ui:param name="controller" value="#{adminProductMB}" />
+	<ui:param name="model" value="#{controller.model}" />
+
+	<ui:define name="content-footer">
+		<p:panel styleClass="ui-panelgrid-blank card ui-g-nopad"
+			header="variations">
+			<div class="ui-g">
+
+			<div class="root-card">
+				<div class="child-card">
+					<div class="multi-button">
+						<button class="fa fa-heart"></button>
+						<button class="fa fa-comment"></button>
+						<button class="fa fa-share-alt"></button>
+						<button class="fa fa-trash"></button>
+					</div>
+					<div class="container">
+						<h:graphicImage width="124" height="124" alt="image produit"
+							value="#{controller.getImage(model.picture)}" />
+
+					</div>
+				</div>
+			</div>
+			</div>
+		</p:panel>
+		<p:panel id="panel-product-variations"
+			styleClass="ui-panelgrid-blank card ui-g-nopad" header="variations"
+			style="margin-bottom: 1em;border:none" widgetVar="panel-variations">
+			<h:form id="form"
+				rendered="#{not empty controller.variationMB.items}">
+
+				<div class="ui-g">
+					<p:repeat value="#{controller.variationMB.items}" var="product">
+
+						<div class="box ui-g-3">
+							<a href="/products/#{model.id}/variations/#{product.id}"> <span
+								class="boxContent"> <h:graphicImage width="124"
+										height="124" alt="image produit"
+										value="#{controller.getImage(product.picture)}" /> <span
+									class="title">#{product.name}</span>
+							</span>
+
+							</a>
+
+						</div>
+
+
+
+					</p:repeat>
+				</div>
+			</h:form>
+		</p:panel>
+	</ui:define>
+
+	<!--  Formulaire d'édition  -->
+	<ui:define name="form-edit">
+
+		<div class="ui-g ui-fluid form-group ui-panelgrid-blank">
+			<w:inputText styleClass="ui-g-12 ui-md-2" id="metatitle"
+				label="#{msg['product.ref']}" value="#{model.reference}" />
+
+			<w:inputText styleClass="ui-g-12 ui-md-4" id="name"
+				label="#{msg['product.name']}" value="#{model.name}" />
+		</div>
+
+		<div class="ui-g">
+			<div class="ui-g-12">
+				<p:textEditor toolbarVisible="true" widgetVar="editor1"
+					value="#{model.description}" height="300"
+					style="margin-bottom:10px" />
+			</div>
+
+			<fieldset jsf:id="images" Class="ui-g-12">
+				<legend>#{msg['product.pictures']}"</legend>
+				<h:graphicImage width="124" height="124" alt="image produit"
+					value="#{controller.image}" />
+			</fieldset>
+
+			<div class="ui-g-12">
+				<p:fileUpload mode="simple" value="#{controller.uploadedFile}"
+					label="image 64x64" update="images" uploadLabel="Valider"
+					cancelLabel="Annuler" />
+			</div>
+		</div>
+
+	</ui:define>
+
+	<!--  Formulaire list  -->
+	<ui:define name="form-list">
+		<f:facet name="header">
+	        List of Products
+	    </f:facet>
+
+
+		<p:column headerText="#{msg.picture}" width="90">
+			<h:graphicImage id="img-64" width="32" height="32"
+				style="vertical-align: middle;" alt="image produit"
+				value="#{controller.getImage(item.picture)}" />
+		</p:column>
+
+		<p:column headerText="#{msg.name}" filterBy="#{item.name}"
+			filterMatchMode="contains" filterable="false" sortBy="#{item.name}">
+			<h:outputText value="#{item.name}" />
+		</p:column>
+
+		<p:column headerText="#{msg.ref}" filterBy="#{item.reference}"
+			filterMatchMode="contains" filterable="false"
+			sortBy="#{item.reference}">
+			<h:outputText value="#{item.reference}" />
+		</p:column>
+
+		<p:column headerText="PrixHT" filterBy="#{item.pricing.priceHT}"
+			filterMatchMode="contains" width="100" filterable="false"
+			sortBy="#{item.pricing.priceHT}">
+			<h:outputText value="#{item.pricing.priceHT}" />
+		</p:column>
+
+		<p:column headerText="PrixTTC" filterBy="#{item.pricing.priceTTC}"
+			filterMatchMode="contains" width="100" filterable="false"
+			sortBy="#{item.pricing.priceTTC}">
+			<h:outputText value="#{item.pricing.priceTTC}" />
+		</p:column>
+
+		<p:column headerText="Stock" filterBy="#{item.stock.quantity}"
+			filterMatchMode="contains" width="100" filterable="false"
+			sortBy="#{item.stock.quantity}">
+			<h:outputText value="#{item.stock.quantity}" />
+		</p:column>
+
+
+	</ui:define>
+
+
+
+
+
+
+
+
+</ui:composition>

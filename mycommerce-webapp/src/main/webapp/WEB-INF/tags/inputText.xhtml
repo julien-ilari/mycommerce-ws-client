@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+	<div class="#{styleClass}">
+		<div class="ui-inputgroup">
+			<div class="md-inputfield">
+				<p:inputText id="#{id}" required="true" value="#{value}" />
+				<p:outputLabel for="#{id}" value="#{label}" />
+			</div>
+			<span class="ui-inputgroup-addon">#{addon}</span>
+		</div>
+		<h:message for="#{id}" style="color:red;margin:8px;" />
+	</div>
+</ui:composition>
+
+</html>

@@ -1,0 +1,73 @@
+<server>
+	<featureManager>
+		<feature>microProfile-3.3</feature>
+		<!-- <feature>appSecurity-3.0</feature> -->
+		<!-- <feature>mpJwt-1.1</feature> -->
+
+		<feature>jaxrs-2.1</feature>
+		<feature>jsonp-1.1</feature>
+		<feature>cdi-2.0</feature>
+		<feature>mpConfig-1.4</feature>
+		<feature>mpRestClient-1.4</feature>
+		<feature>beanValidation-2.0</feature>
+		<feature>jpa-2.2</feature>
+		<feature>mpOpenAPI-1.1</feature>
+	</featureManager>
+
+<!-- 	<basicRegistry realm="basicRealm"> -->
+<!-- 		<user name="admin" password="adminpwd" /> -->
+<!-- 		<user name="reader" password="readerpwd" /> -->
+<!-- 	</basicRegistry> -->
+
+<!-- 	<administrator-role> -->
+<!-- 		<user>admin</user> -->
+<!-- 	</administrator-role> -->
+<!-- 	<reader-role> -->
+<!-- 		<user>reader</user> -->
+<!-- 	</reader-role> -->
+
+	<variable name="default.http.port" defaultValue="8040" />
+	<variable name="default.https.port" defaultValue="8043" />
+
+	<!-- Importer le magasin de confiance Java par défaut pour les certificats 
+		racine trustStoreRef="defaultTrustStore" -->
+	<ssl id="defaultSSLConfig" keyStoreRef="defaultKeyStore" />
+	<keyStore id="defaultKeyStore" password="OpenLiberty" />
+
+	<!-- Configurer MicroProfil JWT -->
+	<!-- <javaKeystoreLocation>${env.JAVA_HOME}/lib/security/cacerts</javaKeystoreLocation> -->
+	<!-- signatureAlgorithm="HS256" userNameAttribute="upn" groupNameAttribute="groups" -->
+	<!-- https://www.ibm.com/support/knowledgecenter/en/SS7K4U_liberty/com.ibm.websphere.liberty.autogen.zos.doc/ae/rwlp_config_mpJwt.html -->
+	<!-- <mpJwt id="myMpJwt" -->
+	<!-- audiences="myclient" -->
+	<!-- issuer="http://localhost:8080/auth/realms/myrealm" -->
+	<!-- jwksUri="http://localhost:8080/auth/realms/myrealm/protocol/openid-connect/certs" -->
+	<!-- ignoreApplicationAuthMethod="true" /> -->
+
+
+	<httpEndpoint host="*" httpPort="${default.http.port}"
+		httpsPort="${default.https.port}" id="defaultHttpEndpoint" />
+
+
+	<webApplication name="mycommerce-rest"
+		location="mycommerce-rest-remote-1.0-SNAPSHOT.war" type="war"
+		contextRoot="${app.context.root}" />
+
+
+	<!-- Derby Library Configuration -->
+	<variable name="DERBY_JDBC_DRIVER_PATH"
+		defaultValue="/home/njlg6500/.m2/repositoryPerso/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar" />
+
+	<library id="derbyJDBCLib">
+		<file name="${DERBY_JDBC_DRIVER_PATH}" />
+	</library>
+
+	<!-- Datasource Configuration -->
+	<dataSource id="jpadtatasource" statementCacheSize="10"
+		jndiName="jdbc/defaultDatasource">
+		<jdbcDriver libraryRef="derbyJDBCLib" />
+		<properties.derby.embedded
+			connectionAttributes="upgrade=true" createDatabase="create"
+			databaseName="/var/tmp/derby/mycommerce.db" />
+	</dataSource>
+</server>

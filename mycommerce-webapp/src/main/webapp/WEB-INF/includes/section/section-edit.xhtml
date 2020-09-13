@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+	<!-- formulaire d'édition -->	
+	<section>
+
+		<!-- Panel du formulaire d'édition -->
+		<p:panel id="panel-edit" styleClass="ui-panelgrid-blank card ui-g-nopad" rendered="#{controller.action eq 'CREATE' or controller.action eq 'UPDATE'}"
+			header="edit panel"
+			style="margin-bottom: 1em;border:none" widgetVar="panel-edit">
+			<h:form id="form-edit" enctype="multipart/form-data" prependId="false">
+				<!-- Insertion des composants -->
+				<ui:insert name="form-edit" />
+				<ui:insert />
+
+				<ui:insert name="form-edit-buttons">
+					<div style="margin-top: 1em">
+						<p:commandButton update=":main" immediate="true"
+							styleClass="secondary" ajax="true" icon="ui-icon-cancel"
+							value="Cancel" actionListener="#{controller.reset}"
+							style="margin-right:0.5em" />
+						<p:commandButton update=":main" icon="ui-icon-save"
+							styleClass="green-btn" ajax="true"
+							actionListener="#{controller.saveAction}" value="Save"
+							style="margin-left:0.5em" />
+					</div>
+				</ui:insert>
+			</h:form>
+
+		</p:panel>
+	</section>
+
+
+</ui:composition>
+
+
+
+
+
+

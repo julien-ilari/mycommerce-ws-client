@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:w="http://web-maker.fr/html"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+	<section>
+
+		<p:panel id="panel-list" styleClass="ui-panelgrid-blank card ui-g-nopad"
+			header="header" rendered="#{controller.action eq 'DEFAULT'}"
+			widgetVar="panel-list">
+
+			<f:facet name="actions">
+
+				
+				<p:commandLink
+					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+					<h:outputText styleClass="ui-icon fa fa-question" />
+				</p:commandLink>
+				<p:commandLink
+					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+					<h:outputText styleClass="ui-icon fa fa-star" />
+				</p:commandLink>
+				
+				<p:commandLink
+					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"
+					resetValues="true" actionListener="#{controller.newItem}"
+					update=":main" process="@this">
+					<i class="material-icons">library_add</i>
+				</p:commandLink>
+				
+				
+				
+			</f:facet>
+
+			<h:form id="form-list" prependId="false">
+
+				<p:outputPanel style="text-align: left;margin:0.5em">
+					<p:inputText id="globalFilter" style="width:250px"
+						placeholder="Entrer une valeur à rechercher"
+						onkeyup="PF('dataTable').filter()" />
+				</p:outputPanel>
+
+
+				<p:outputPanel rendered="#{showTreeTable}">
+					<p:commandLink style="margin:0.2em"
+						rendered="#{not empty controller.selectedNode}"
+						styleClass="btn-floating btn-small red" title="delete"
+						update=":main" partialSubmit="true" process="@this"
+						immediate="true" resetValues="true"
+						actionListener="#{controller.deleteNode}">
+						<i class="material-icons">delete_forever</i>
+					</p:commandLink>
+
+					<p:commandLink style="margin:0.2em"
+						rendered="#{not empty controller.selectedNode}" update=":main"
+						styleClass="btn-floating btn-small blue" title="edit"
+						immediate="true" resetValues="true" partialSubmit="true"
+						process="@this" actionListener="#{controller.editAction}">
+						<i class="material-icons">edit</i>
+					</p:commandLink>
+				</p:outputPanel>
+
+
+				<p:treeTable widgetVar="treeTable" value="#{controller.root}"
+					var="item" rendered="#{showTreeTable}" selectionMode="single"
+					selection="#{controller.selectedNode}"
+					emptyMessage="aucune données">
+
+					<p:ajax event="select" resetValues="true" immediate="true"
+						update="commands" />
+
+					<ui:insert name="form-list">
+					</ui:insert>
+
+				</p:treeTable>
+
+				<p:dataTable id="dataTable"  widgetVar="dataTable"
+					rendered="#{empty showTreeTable or not showTreeTable}"
+					emptyMessage="Aucune données" selectionMode="multiple"
+					selectionPageOnly="false" sortMode="multiple"
+					selection="#{controller.selectedItems}" rowKey="#{item.id}"
+					filteredValue="#{controller.filteredItems}"
+					value="#{controller.items}" var="item" reflow="true" rows="25"
+					paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					currentPageReportTemplate="{startRecord}-{endRecord}/{totalRecords}"
+					rowsPerPageTemplate="5,10,15,25">
+
+					<p:ajax event="rowDblselect" resetValues="true"
+						listener="#{controller.onRowDblSelect}" immediate="true"
+						update=":main" />
+						
+						 <p:ajax event="rowSelect" immediate="true"  resetValues="true"
+						listener="#{controller.onRowSelect}" update=":main"  />
+
+
+					<p:column selectionMode="multiple" style="width:32px;text-align:center">
+ 						
+					</p:column>
+					
+					<p:column headerText="#id" width="60" ariaHeaderText="identifiant">
+						<h:outputText value="#{item.id}" />
+					</p:column>
+
+
+					<ui:insert name="form-list">
+					</ui:insert>
+
+
+					<p:column headerText="Action" width="100">
+
+						<p:commandButton style="margin:0.2em" update=":main"
+							icon="ui-icon-edit" styleClass="amber-btn" title="edit"
+							immediate="true" resetValues="true"
+							actionListener="#{controller.editAction}">
+							<f:attribute name="activeIndexTabMenu" value="0" />
+							<f:attribute name="itemId" value="#{item.id}" />
+						</p:commandButton>
+						<p:commandButton title="delete" style="margin:0.2em"
+							icon="ui-icon-delete" styleClass="red-btn" update=":main"
+							immediate="true" resetValues="true"
+							actionListener="#{controller.deleteAction}">
+							<f:attribute name="itemId" value="#{item.id}" />
+						</p:commandButton>
+
+
+					</p:column>
+
+				</p:dataTable>
+			</h:form>
+		</p:panel>
+	</section>
+
+</ui:composition>

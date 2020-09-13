@@ -1,0 +1,83 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:p="http://primefaces.org/ui"
+	xmlns:w="http://web-maker.fr/html"
+	template="/WEB-INF/templates/layout-product-edit.xhtml">
+
+	<ui:param name="controller" value="#{adminProductVariationMB}" />
+	<ui:param name="model" value="#{controller.model}" />
+	<ui:param name="showSectionList" value="true" />
+
+	<ui:define name="main-header">
+		<div class="ui-g">
+			<div class="ui-g-12"></div>
+		</div>
+	</ui:define>
+
+	<!--  Formulaire d'édition  -->
+	<ui:define name="form-edit">
+		<div class="ui-g">
+
+			<div class="ui-g-12 ui-fluid form-group">
+				<w:inputText styleClass="ui-g-12" id="name"
+					label="#{msg['product.name']}" value="#{model.name}" />
+					
+					
+				
+				<div jsf:id="images" class=" card hovereffect ui-g-nopad" style="width: 372px;height: 372px">
+					<h:graphicImage styleClass="img-responsive"
+						width="372" height="372" alt="" 
+						value="#{controller.getImage(model.picture)}" />	
+					<div class="overlay">
+						<h2>#{msg.picture} #{msg.product}</h2>
+						<div class="info">
+						<p:fileUpload value="#{controller.uploadedFile}" chooseIcon="fa fa-folder-open"
+						update="images" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+						mode="advanced" auto="true"
+						label="#{msg.select}" />
+						</div>
+						
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</ui:define>
+
+
+	<!--  Formulaire list  -->
+	<ui:define name="form-list">
+	
+		<f:facet name="header">
+	        List of variations produit
+	    </f:facet>
+
+		<p:column headerText="#{msg.picture}" width="90">
+			<h:graphicImage id="img-64" width="32" height="32"
+				style="vertical-align: middle;" alt="image produit"
+				value="#{controller.getImage(item.picture)}" />
+		</p:column>
+
+		<p:column headerText="#{msg.name}" filterBy="#{item.name}"
+			filterMatchMode="contains" filterable="false" sortBy="#{item.name}">
+			<h:outputText value="#{item.name}" />
+		</p:column>
+
+		<p:column headerText="#{msg.priceImpact}" filterBy="#{item.priceImpact}"
+			filterMatchMode="contains" filterable="false"
+			sortBy="#{item.priceImpact}">
+			<h:outputText value="#{item.priceImpact}" />
+		</p:column>
+
+		<p:column headerText="#{msg.quantity}" filterBy="#{item.quantity}"
+			filterMatchMode="contains" filterable="false"
+			sortBy="#{item.quantity}">
+			<h:outputText value="#{item.quantity}" />
+		</p:column>
+
+
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,43 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<f:metadata>
+		<f:viewAction action="#{controlAddressMB.onload}" />
+	</f:metadata>
+
+	<ui:define name="title">Control Adresse</ui:define>
+
+
+	<ui:define name="content">
+		<h1>Control Adresse</h1>
+		<p>Retourne la liste des adresses correspondant au critère, sous
+			la forme d’un tableau d’objets contenant l’adresse reconnue et son
+			code. Pour obtenir les informations de détail d’une adresse, utiliser
+			son code avec la ressource détail (controladresse/v1/adresses/:code).
+		</p>
+
+
+		<h:dataTable value="#{controlAddressMB.address}" var="item"
+			styleClass="responsive-table highlight centered bordered responsive-table">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Code" />
+				</f:facet>
+				#{item.code}
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Adresse" />
+				</f:facet>
+				#{item.adresse}
+			</h:column>
+		</h:dataTable>
+
+	</ui:define>
+
+
+
+</ui:composition>

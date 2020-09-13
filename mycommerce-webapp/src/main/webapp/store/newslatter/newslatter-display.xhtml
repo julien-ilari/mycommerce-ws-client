@@ -1,0 +1,51 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="title">Newslatter</ui:define>
+
+
+	<ui:define name="content">
+		
+		<div class="container">
+			<h1>Newslatter</h1>
+			
+			<p>Inscrivez-vous à notre newsletter pour suivre nos actualités.</p>
+			
+			<div class="input-field col s6">
+			<i class="material-icons prefix">account_circle</i>
+			
+			<label for="icon_prefix" 
+			class="#{not empty contactMB.model.name ? 'active' : ''}">Nom Prénom</label>
+			
+			
+			<input id="icon_prefix" type="text" jsf:name="name" 
+			required="required" class="validate" aria-required="true" 
+			jsf:value="#{contactMB.model.name}"  />
+			<h:message for="@previous" style = "color:red;margin:8px;" /> 
+			
+			<p style="font-size:14px; text-align:left; font-family:&quot;Helvetica&quot;, sans-serif; color:#687484; background-color:transparent;">
+	  Nous utilisons Sendinblue en tant que plateforme marketing. En soumettant ce formulaire, vous reconnaissez que les informations que vous allez fournir seront transmises à Sendinblue en sa qualité de processeur de données; et ce conformément à ses <a target="_blank" class="clickable_link" href="https://fr.sendinblue.com/legal/termsofuse/">conditions générales d'utilisation</a>.
+	</p>
+		
+			
+			</div>
+	
+			<div style="height: 1000px;width: 100%">
+			
+			<iframe width="100%" height="900" 
+			src="https://40f98347.sibforms.com/serve/MUIEAPO089kRxHFcuIPfwOWoGdsmmb8DMigqiSCy_jIQpEk_aYILbS6Hf5w7KORKVvyjf9Fb-kpWf4niVU91S1Pp7RF9Jf1CmLxYHWm7dGaKHKoVrzu_BW11XlXunGrnKnVvbOmAkBzliiA5PISVMbgj_vw7MlxuocQ4IBkV3clwGAKZJyIen7im7dBTgyM8ahxCh6rP_u_x0iaE"
+		 style="display: block;margin-left: auto;margin-right: auto;max-width: 100%;"></iframe>
+			
+			
+			</div>
+	
+		</div>
+	</ui:define>
+
+	
+
+</ui:composition>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:jsf="http://xmlns.jcp.org/jsf">
+<f:view>
+	<ui:insert name="metadata" />
+
+	<h:head>
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<f:facet name="first">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<meta name="viewport"
+				content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+			<meta name="apple-mobile-web-app-capable" content="yes" />
+			<meta name="theme-color"
+				content="#{guestPreferences.themeColors[guestPreferences.theme]}" />
+		</f:facet>
+		<title>Administration</title>
+		<h:outputScript name="js/nanoscroller.js" library="ultima-layout" />
+		<h:outputScript name="js/layout.js" library="ultima-layout" />
+		<h:outputScript name="js/ripple.js" library="ultima-layout" />
+		<h:outputScript name="js/swipe.js" library="ultima-layout" />
+
+
+		<h:outputStylesheet library="css" name="style.css" />
+
+
+	</h:head>
+	<h:body
+		styleClass="main-body #{guestPreferences.compact ? 'layout-compact' : null}">
+
+
+		<div
+			class="layout-wrapper #{guestPreferences.menuLayout} #{guestPreferences.orientationRTL ? 'layout-rtl' : null}">
+
+			<div aria-hidden="true">
+				<ui:include src="./topbar.xhtml" />
+				<ui:include src="./rightpanel.xhtml" />
+			</div>
+			<header>
+				<ui:include src="./menu.xhtml" />
+
+			</header>
+
+
+			<div class="layout-main">
+				<p:breadCrumb style="background-color:none;color:black;width:100%">
+					<ui:insert name="breadCrumb-menuitems">
+					<p:menuitem value="Accueil" url="#" />
+					<p:menuitem value="Catalogue" url="#" />
+					<p:menuitem value="#{msg.products}" url="#" />
+					</ui:insert>
+				</p:breadCrumb>
+				
+				
+			
+
+
+				<section class="card card-w-title ui-g-nopad"
+					style="background-color: white;">
+					
+						<section class="dashboard ui-g">
+
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<div class="ui-g card colorbox colorbox-3">
+								<div class="ui-g-4">
+									<i class="material-icons">local_offer</i>
+								</div>
+								<div class="ui-g-8">
+									<span class="colorbox-name">#{msg.products}</span> <span
+										class="colorbox-count">#{controller.items.size()}</span>
+								</div>
+							</div>
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-3">
+							<div class="ui-g card colorbox colorbox-1">
+								<div class="ui-g-4">
+									<i class="material-icons">pie_chart</i>
+								</div>
+								<div class="ui-g-8">
+									<span class="colorbox-name">#{msg.sales}</span> <span
+										class="colorbox-count">#{controller.items.size()}</span>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<div class="ui-g">
+						<div class="ui-g-12">
+							
+						</div>
+					</div>
+
+					<ui:insert name="main-header" />
+					<p>#{descriptionPage}</p>
+					<ui:insert />
+
+
+				</section>
+
+				<main jsf:id="main" class="" style="padding-top: 0em">
+					<p:growl id="growl" showDetail="true">
+						<p:autoUpdate></p:autoUpdate>
+					</p:growl>
+
+					<ui:insert name="content" />
+				</main>
+			</div>
+
+			<ui:include src="./config.xhtml" />
+		</div>
+
+
+		<p:ajaxStatus
+			style="width:32px;height:32px;position:fixed;right:7px;bottom:7px">
+			<f:facet name="start">
+				<i class="fa fa-circle-o-notch fa-spin ajax-loader"
+					aria-hidden="true"></i>
+			</f:facet>
+
+			<f:facet name="complete">
+				<h:outputText value="" />
+			</f:facet>
+		</p:ajaxStatus>
+
+		<h:outputStylesheet name="css/nanoscroller.css"
+			library="ultima-layout" />
+		<h:outputStylesheet name="css/animate.css" library="ultima-layout" />
+		<h:outputStylesheet name="css/ripple.css" library="ultima-layout" />
+		<h:outputStylesheet name="css/layout-#{guestPreferences.theme}.css"
+			library="ultima-layout" />
+
+	</h:body>
+</f:view>
+</html>

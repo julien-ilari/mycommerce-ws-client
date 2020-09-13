@@ -1,0 +1,82 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:w="http://web-maker.fr/html">
+	<ui:define name="title">Contact</ui:define>
+
+	<ui:define name="content">
+		<div class="container">
+			<h1>Formulaire de contact</h1>
+
+			<h:form id="formulaire">
+				<div class="row">
+					<div class="col s12 m6">
+
+						<div class=" col s6">
+							<w:inputField id="name" icon="account_circle" label="Nom Prénom"
+								value="#{contactMB.model.name}" />
+						</div>
+
+						<div class="col s6">
+							<w:inputField id="phone" icon="phone" label="Téléphone"
+								value="#{contactMB.model.phone}" />
+						</div>
+
+						<div class="col s12">
+							<w:inputField id="mail" icon="mail" label="E-mail"
+								value="#{contactMB.model.email}" />
+						</div>
+
+						<div class="col s12">
+							<w:inputField id="message" icon="edit" label="Message"
+								value="#{contactMB.model.message}" />
+						</div>
+
+						<div class="col s12">
+							<w:buttonReset label="Annuler" />
+							<w:buttonPrimary icon="send" label="Envoyer"
+								listener="#{contactMB.submit}" />
+						</div>
+					</div>
+
+					<div class="col s12 m6">
+						<ui:repeat var="value" value="#{contactMB.values}">
+
+							<div class="card-panel teal"
+								style="background-color: floralwhite !important;">
+
+								<div class="row">
+									<div class="col s12" style="display: inline-flex;">
+										<i class="material-icons prefix">access_time</i>
+										<time datetime="#{value.dateSending}">#{value.dateSending}</time>
+
+										<div class="col s1 offset-s6">
+											<span class="new badge flow-text green">Envoyé</span>
+										</div>
+									</div>
+
+									<div class="col s12"
+										style="font-size: 14pt; color: #333 !important">
+										<p class="">#{value.message}</p>
+									</div>
+
+								</div>
+							</div>
+						</ui:repeat>
+
+
+					</div>
+				</div>
+
+
+
+			</h:form>
+		</div>
+
+	</ui:define>
+
+
+
+</ui:composition>
